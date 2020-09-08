@@ -46,7 +46,6 @@ jobs:
 
   - job: test_macos
     displayName: "Test macOS"
-    dependsOn: "Build_binding"
     pool:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Darwin
@@ -58,7 +57,6 @@ jobs:
 
   - job: test_win86
     displayName: "Test win32"
-    dependsOn: "Build_binding"
     pool:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Windows_NT
@@ -70,7 +68,6 @@ jobs:
 
   - job: test_win64
     displayName: "Test win64"
-    dependsOn: "Build_binding"
     pool:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Windows_NT
