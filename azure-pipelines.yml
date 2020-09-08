@@ -26,10 +26,10 @@ parameters:
       - ubuntu-latest
       - ubuntu-18.04
       - ubuntu-16.04
+  - template: nodejs-versions.yaml
 
 variables:
   system.debug: true
-  node_version: 13.12.0
 
 jobs:
   # Test jobs below this point
@@ -39,40 +39,34 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: $(node_version)
-      - script: node --version
+      - ${{ each node_version in parameters.node_versions }}:
+        - template: nodejs-steps.yaml
+          parameters:  ${{ parameters['node_version'] }}
 
-  - job: test_macos
-    displayName: "Test macOS"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Darwin
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: $(node_version)
-      - script: node --version
-
-  - job: test_win86
-    displayName: "Test win32"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Windows_NT
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: $(node_version)
-      - script: node --version
-
-  - job: test_win64
-    displayName: "Test win64"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Windows_NT
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: $(node_version)
-      - script: node --version
+#  - job: test_macos
+#    displayName: "Test macOS"
+#    pool:
+#      name: test-pool-onv12-1
+#      demands: Agent.OS -equals Darwin
+#    steps:
+#      - template: nodejs-steps.yaml
+#        parameters:  ${{ parameters['nodejs_version'] }}
+#
+#  - job: test_win86
+#    displayName: "Test win32"
+#    pool:
+#      name: test-pool-onv12-1
+#      demands: Agent.OS -equals Windows_NT
+#    steps:
+#      - template: nodejs-steps.yaml
+#        parameters:  ${{ parameters['nodejs_version'] }}
+#
+#  - job: test_win64
+#    displayName: "Test win64"
+#    pool:
+#      name: test-pool-onv12-1
+#      demands: Agent.OS -equals Windows_NT
+#    steps:
+#      - template: nodejs-steps.yaml
+#        parameters:  ${{ parameters['nodejs_version'] }}
+#
