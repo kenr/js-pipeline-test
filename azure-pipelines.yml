@@ -35,7 +35,6 @@ jobs:
   # Test jobs below this point
   - job: test_linux64
     displayName: "Test Linux"
-    dependsOn: "Build_binding"
     pool:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
