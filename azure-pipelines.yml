@@ -26,10 +26,10 @@ parameters:
       - ubuntu-latest
       - ubuntu-18.04
       - ubuntu-16.04
-  - template: nodejs-versions.yaml
 
 variables:
-  system.debug: true
+  - system.debug: true
+  - template: nodejs-versions.yaml
 
 jobs:
   # Test jobs below this point
@@ -39,9 +39,9 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
     steps:
-      - ${{ each node_version in parameters.node_versions }}:
+      - ${{ each node_version in variables.node_versions }}:
         - template: nodejs-steps.yaml
-          parameters:  ${{ parameters['node_version'] }}
+          parameters:  ${{ variables.node_version }}
 
 #  - job: test_macos
 #    displayName: "Test macOS"
