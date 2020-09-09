@@ -23,13 +23,14 @@ parameters:
       - ubuntu-latest
       - ubuntu-18.04
       - ubuntu-16.04
-  - template: nodejs-versions.yaml
+
+- template: nodejs-versions.yaml
 
 variables:
   system.debug: true
 
-#extends:
-#  template: nodejs-versions.yaml
+extends:
+  template: nodejs-versions.yaml
 
 jobs:
   # Test jobs below this point
