@@ -36,7 +36,7 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
     steps:
-      - ${{ each node_version in parameters['node_versions'] }}:
+      - ${{ each node_version in parameters.node_versions }}:
         - template: nodejs-steps.yaml
           parameters:
             node_version: ${{ node_version }}
