@@ -28,6 +28,9 @@ variables:
   system.debug: true
   template: nodejs-versions.yaml
 
+extends:
+  template: nodejs-versions.yaml
+
 jobs:
   # Test jobs below this point
   - job: test_linux64
@@ -36,7 +39,7 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
     steps:
-      - ${{ each node_version in variables.node_versions }}:
+      - ${{ each node_version in parameters.node_versions }}:
         - template: nodejs-steps.yaml
           parameters:
             node_version: ${{ node_version }}
