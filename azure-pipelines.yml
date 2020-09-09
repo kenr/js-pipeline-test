@@ -36,34 +36,6 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Linux
     steps:
-      - ${{ each node_version in variables.node_versions }}:
+      - ${{ each node_version in parameters.node_versions }}:
         - template: nodejs-steps.yaml
           parameters:  ${{ variables.node_version }}
-
-#  - job: test_macos
-#    displayName: "Test macOS"
-#    pool:
-#      name: test-pool-onv12-1
-#      demands: Agent.OS -equals Darwin
-#    steps:
-#      - template: nodejs-steps.yaml
-#        parameters:  ${{ parameters['nodejs_version'] }}
-#
-#  - job: test_win86
-#    displayName: "Test win32"
-#    pool:
-#      name: test-pool-onv12-1
-#      demands: Agent.OS -equals Windows_NT
-#    steps:
-#      - template: nodejs-steps.yaml
-#        parameters:  ${{ parameters['nodejs_version'] }}
-#
-#  - job: test_win64
-#    displayName: "Test win64"
-#    pool:
-#      name: test-pool-onv12-1
-#      demands: Agent.OS -equals Windows_NT
-#    steps:
-#      - template: nodejs-steps.yaml
-#        parameters:  ${{ parameters['nodejs_version'] }}
-#
