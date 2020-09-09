@@ -39,4 +39,4 @@ jobs:
       - ${{ each node_version in parameters.node_versions }}:
         - template: nodejs-steps.yaml
           parameters:
-            node_version: ${{ node_version }}
+            node_version: ${{ variables.node_version }}
