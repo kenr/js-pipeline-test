@@ -31,7 +31,7 @@ resources:
   repositories:
     - repository: .azure-common
       type: github
-      endpoint: kenr-githubconnection
+      endpoint: kenr
       name: kenr/js-common
 
 steps:
