@@ -3,3 +3,4 @@ steps:
     inputs:
       versionSpec:  ${{ parameters['node_version'] }}
   - script: node --version
+    description: "Running node ${{ parameters['node_version'] }} tests"
