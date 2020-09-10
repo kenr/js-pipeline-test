@@ -18,7 +18,7 @@ steps:
       NODE_VERSION: "${{ parameters['node_version'] }}",
       NODE_ARCH: "${{ parameters['node_arch'] }}",
     }
-    condition: and(contains(variables['image_name'], 'win'), eq('${{ parameters['node_arch'] }}', '32'))
+    condition: and(contains(variables['Agent.OS'], 'Windows_NT'), eq('${{ parameters['node_arch'] }}', '32'))
     displayName: "Install Node.js ${{ parameters['node_version'] }} 32-bit"
     continueOnError: false
   - script: node --version
