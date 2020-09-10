@@ -8,34 +8,36 @@ resources:
 extends:
   template: supported-nodejs-versions.yml@azure-common
 
-jobs:
-  # Test jobs below this point
-  - job: test_windows
-    displayName: "Test Windows"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Windows_NT
-    steps:
-      - ${{ each node_version in parameters.node_versions }}:
-        - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
-          - template: setup-nodejs.yaml
-            parameters:
-              node_version: ${{ node_version }}
-              node_arch: ${{ node_arch }}
-          - bash: |
-              node -e "console.log(process.version+\" arch:\"+process.arch)"
-  - job: test_darwin
-    displayName: "Test macOS"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Darwin
-    steps:
-      - ${{ each node_version in parameters.node_versions }}:
-        - ${{ each node_arch in parameters.node_arch_Darwin }}:
-          - template: setup-nodejs.yaml
-            parameters:
-              node_version: ${{ node_version }}
-              node_arch: ${{ node_arch }}
-          - bash: |
-              node -e "console.log(process.version+\" arch:\"+process.arch)"
-            displayName: Print nodejs version and arch
+stages:
+- stage: Run nodejs tests
+  jobs:
+    # Test jobs below this point
+    - job: test_windows
+      displayName: "Test Windows"
+      pool:
+        name: test-pool-onv12-1
+        demands: Agent.OS -equals Windows_NT
+      steps:
+        - ${{ each node_version in parameters.node_versions }}:
+          - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
+            - template: setup-nodejs.yaml
+              parameters:
+                node_version: ${{ node_version }}
+                node_arch: ${{ node_arch }}
+            - bash: |
+                node -e "console.log(process.version+\" arch:\"+process.arch)"
+    - job: test_darwin
+      displayName: "Test macOS"
+      pool:
+        name: test-pool-onv12-1
+        demands: Agent.OS -equals Darwin
+      steps:
+        - ${{ each node_version in parameters.node_versions }}:
+          - ${{ each node_arch in parameters.node_arch_Darwin }}:
+            - template: setup-nodejs.yaml
+              parameters:
+                node_version: ${{ node_version }}
+                node_arch: ${{ node_arch }}
+            - bash: |
+                node -e "console.log(process.version+\" arch:\"+process.arch)"
+              displayName: Print nodejs version and arch
