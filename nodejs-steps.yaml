@@ -2,7 +2,7 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec:  ${{ parameters['node_version'] }}
-    condition: ne(parameters['node_arch', '32'])
+    condition: ne(parameters['node_arch'], '32')
   - script: node --version
     displayName: "Running node ${{ parameters['node_version'] }} tests"
     continueOnError: true
