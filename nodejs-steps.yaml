@@ -10,11 +10,10 @@ steps:
       set -o errexit -o pipefail
       $NVM_HOME/nvm install $NODE_VERSION $NODE_ARCH
       $NVM_HOME/nvm use $NODE_VERSION $NODE_ARCH
-      # ln -sf "$NVM_SYMLINK/node" "$NODE_SYMLINK/node"
+      echo "##vso[task.prependpath]$NVM_SYMLINK"
     env: {
-      NVM_HOME: "/C/nvm",
-      NVM_SYMLINK: "/C/nvm/v${{ parameters['node_version'] }}",
-      NODE_SYMLINK: "/C/Program Files/nodejs",
+      NVM_HOME: "C:\\nvm",
+      NVM_SYMLINK: "C:\\nvm\\v${{ parameters['node_version'] }}",
       NODE_VERSION: "${{ parameters['node_version'] }}",
       NODE_ARCH: "${{ parameters['node_arch'] }}",
     }
