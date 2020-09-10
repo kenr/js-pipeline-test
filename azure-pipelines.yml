@@ -197,12 +197,12 @@ parameters:
     default:
       - 32
       - 64
-  - name: node_arch_linux
+  - name: node_arch_Linux
     displayName: Node versions
     type: object
     default:
       - 64
-  - name: node_arch_macos
+  - name: node_arch_Darwin
     displayName: Node versions
     type: object
     default:
@@ -220,7 +220,7 @@ jobs:
       demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
-        - ${{ each node_arch in parameters.node_arch_${{ Agent.OS }} }}:
+        - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
           - template: setup-nodejs.yaml
             parameters:
               node_version: ${{ node_version }}
