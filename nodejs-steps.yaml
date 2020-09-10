@@ -20,6 +20,6 @@ steps:
     condition: and(contains(variables['Agent.OS'], 'Windows_NT'), eq('${{ parameters['node_arch'] }}', '32'))
     displayName: "Install Node.js ${{ parameters['node_version'] }} 32-bit"
     continueOnError: false
-  - script: node --version
+  - script: node -e "console.log(process.version+\" arch:\"+process.arch)"
     displayName: "Running node ${{ parameters['node_version'] }}/${{ parameters['node_arch'] }} tests"
     continueOnError: false
