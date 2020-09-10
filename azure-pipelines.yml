@@ -31,7 +31,7 @@ parameters:
       - 14.8.0
       - 14.7.0
       - 14.6.0
-#     - 14.5.0 # Sefaults on node --version
+#     - 14.5.0 # Sefaults on Linux x64 node --version
       - 14.4.0
       - 14.3.0
       - 14.2.0
@@ -198,12 +198,13 @@ variables:
 jobs:
   # Test jobs below this point
   - job: test_linux64
-    displayName: "Test Linux"
+    displayName: "Test Windows"
     pool:
       name: test-pool-onv12-1
-      demands: Agent.OS -equals Linux
+      demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
         - template: nodejs-steps.yaml
           parameters:
             node_version: ${{ node_version }}
+            node_arch: x64
