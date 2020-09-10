@@ -1,6 +1,3 @@
-variables:
-  system.debug: true
-
 resources:
   repositories:
     - repository: azure-common
@@ -10,10 +7,6 @@ resources:
 
 extends:
   template: supported-nodejs-versions.yml@azure-common
-
-#steps:
-#  - checkout: self
-#  - checkout: azure-common
 
 jobs:
   # Test jobs below this point
