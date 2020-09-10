@@ -4,21 +4,21 @@ steps:
       versionSpec:  ${{ parameters['node_version'] }}
     condition: ne('${{ parameters['node_arch'] }}', '32')
   - bash: |
-       # This script assumes that nvm for Windows is installed
-       # https://github.com/coreybutler/nvm-windows/releases
-       set -o errexit -o pipefail
-       nvm install $(NODE_VERSION) $(NODE_ARCH)
-       nvm use $(NODE_VERSION) $(NODE_ARCH)
-       ln -sf "$NVM_SYMLINK/node" "$NODE_SYMLINK/node"
-     env: {
-       NVM_HOME: "/C/ProgramData/nvm",
-       NVM_SYMLINK: "/C/ProgramData/nvm/v${{ parameters['node_version'] }}",
-       NODE_SYMLINK: "/C/Program Files/nodejs",
-       NODE_VERSION: "${{ parameters['node_version'] }}",
-       NODE_ARCH: "${{ parameters['node_arch'] }}",
-     }
-     condition: and(contains(variables['image_name'], 'win'), eq('${{ parameters['node_arch'] }}', '32'))
-     displayName: 'Install Node.js $(node_version) 32-bit'
+      # This script assumes that nvm for Windows is installed
+      # https://github.com/coreybutler/nvm-windows/releases
+      set -o errexit -o pipefail
+      nvm install $(NODE_VERSION) $(NODE_ARCH)
+      nvm use $(NODE_VERSION) $(NODE_ARCH)
+      ln -sf "$NVM_SYMLINK/node" "$NODE_SYMLINK/node"
+    env: {
+      NVM_HOME: "/C/ProgramData/nvm",
+      NVM_SYMLINK: "/C/ProgramData/nvm/v${{ parameters['node_version'] }}",
+      NODE_SYMLINK: "/C/Program Files/nodejs",
+      NODE_VERSION: "${{ parameters['node_version'] }}",
+      NODE_ARCH: "${{ parameters['node_arch'] }}",
+    }
+    condition: and(contains(variables['image_name'], 'win'), eq('${{ parameters['node_arch'] }}', '32'))
+    displayName: 'Install Node.js $(node_version) 32-bit'
   - script: node --version
     displayName: "Running node ${{ parameters['node_version'] }}/${{ parameters['node_arch'] }} tests"
     continueOnError: false
