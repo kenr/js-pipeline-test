@@ -29,17 +29,18 @@ variables:
 
 resources:
   repositories:
-    - repository: .azure-common
+    - repository: azure-common
       type: github
       endpoint: kenr
       name: kenr/js-common
 
+extends:
+  template: supported-nodejs-versions.yml@azure-common
+
+
 steps:
   - checkout: self
-  - checkout: .azure-common
-
-extends:
-  template: .azure-common/supported-nodejs-versions.yml
+  - checkout: azure-common
 
 jobs:
   # Test jobs below this point
