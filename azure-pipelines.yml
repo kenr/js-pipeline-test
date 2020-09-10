@@ -191,20 +191,37 @@ parameters:
       - 8.1.1
       - 8.1.0
       - 8.0.0
+  - name: node_arch_windows
+    displayName: Node versions
+    type: object
+    default:
+      - 32
+      - 64
+  - name: node_arch_linux
+    displayName: Node versions
+    type: object
+    default:
+      - 64
+  - name: node_arch_macos
+    displayName: Node versions
+    type: object
+    default:
+      - 64
 
 variables:
   system.debug: true
 
 jobs:
   # Test jobs below this point
-  - job: test_linux64
+  - job: test_windows
     displayName: "Test Windows"
     pool:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
-        - template: nodejs-steps.yaml
-          parameters:
-            node_version: ${{ node_version }}
-            node_arch: 64
+        - ${{ each node_arch in parameters.node_arch_windows }}:
+          - template: nodejs-steps.yaml
+            parameters:
+              node_version: ${{ node_version }}
+              node_arch: ${{ node_arch }}
