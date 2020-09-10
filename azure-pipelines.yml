@@ -225,3 +225,6 @@ jobs:
             parameters:
               node_version: ${{ node_version }}
               node_arch: ${{ node_arch }}
+      - bash: |
+          echo "Root pipeline config"
+          node --version
