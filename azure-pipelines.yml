@@ -227,3 +227,17 @@ jobs:
               node_arch: ${{ node_arch }}
           - bash: |
               node -e "console.log(process.version+\" arch:\"+process.arch)"
+  - job: test_darwin
+    displayName: "Test macOS"
+    pool:
+      name: test-pool-onv12-1
+      demands: Agent.OS -equals Darwin
+    steps:
+      - ${{ each node_version in parameters.node_versions }}:
+        - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
+          - template: setup-nodejs.yaml
+            parameters:
+              node_version: ${{ node_version }}
+              node_arch: ${{ node_arch }}
+          - bash: |
+              node -e "console.log(process.version+\" arch:\"+process.arch)"
