@@ -191,7 +191,7 @@ parameters:
 #     - 8.1.1
 #     - 8.1.0
 #     - 8.0.0
-  - name: node_arch_windows
+  - name: node_arch_Windows_NT
     displayName: Node versions
     type: object
     default:
@@ -220,8 +220,8 @@ jobs:
       demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
-        - ${{ each node_arch in parameters.node_arch_windows }}:
-          - template: nodejs-steps.yaml
+        - ${{ each node_arch in parameters.node_arch_${{ Agent.OS }} }}:
+          - template: setup-nodejs.yaml
             parameters:
               node_version: ${{ node_version }}
               node_arch: ${{ node_arch }}
