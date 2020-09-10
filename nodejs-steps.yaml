@@ -12,8 +12,8 @@ steps:
       nvm use $NODE_VERSION $NODE_ARCH
       ln -sf "$NVM_SYMLINK/node" "$NODE_SYMLINK/node"
     env: {
-      NVM_HOME: "/C/ProgramData/nvm",
-      NVM_SYMLINK: "/C/ProgramData/nvm/v${{ parameters['node_version'] }}",
+      NVM_HOME: "/C/nvm",
+      NVM_SYMLINK: "/C/nvm/v${{ parameters['node_version'] }}",
       NODE_SYMLINK: "/C/Program Files/nodejs",
       NODE_VERSION: "${{ parameters['node_version'] }}",
       NODE_ARCH: "${{ parameters['node_arch'] }}",
