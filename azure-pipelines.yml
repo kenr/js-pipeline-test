@@ -234,10 +234,11 @@ jobs:
       demands: Agent.OS -equals Darwin
     steps:
       - ${{ each node_version in parameters.node_versions }}:
-        - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
+        - ${{ each node_arch in parameters.node_arch_Darwin }}:
           - template: setup-nodejs.yaml
             parameters:
               node_version: ${{ node_version }}
               node_arch: ${{ node_arch }}
           - bash: |
               node -e "console.log(process.version+\" arch:\"+process.arch)"
+            displayName: Print nodejs version and arch
