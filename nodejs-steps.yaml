@@ -3,7 +3,7 @@ steps:
     inputs:
       versionSpec:  ${{ parameters['node_version'] }}
     condition: ne('${{ parameters['node_arch'] }}', '32')
-    displayName: 'Install Node.js ${{ parameters['node_version'] }} 64-bit'
+    displayName: "Install Node.js ${{ parameters['node_version'] }} 64-bit"
   - bash: |
       # This script assumes that nvm for Windows is installed
       # https://github.com/coreybutler/nvm-windows/releases
@@ -20,6 +20,7 @@ steps:
     }
     condition: and(contains(variables['image_name'], 'win'), eq('${{ parameters['node_arch'] }}', '32'))
     displayName: 'Install Node.js ${{ parameters['node_version'] }} 32-bit'
+    continueOnError: false
   - script: node --version
     displayName: "Running node ${{ parameters['node_version'] }}/${{ parameters['node_arch'] }} tests"
     continueOnError: false
