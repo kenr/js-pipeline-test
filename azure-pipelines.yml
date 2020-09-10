@@ -207,4 +207,4 @@ jobs:
         - template: nodejs-steps.yaml
           parameters:
             node_version: ${{ node_version }}
-            node_arch: x64
+            node_arch: 64
