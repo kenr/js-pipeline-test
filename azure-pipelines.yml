@@ -31,7 +31,7 @@ parameters:
       - 14.8.0
       - 14.7.0
       - 14.6.0
-#     - 14.5.0 # Sefaults on Linux x64 node --version
+#     - 14.5.0 # Segfaults on Linux x64 node --version
       - 14.4.0
       - 14.3.0
       - 14.2.0
@@ -207,6 +207,10 @@ parameters:
     type: object
     default:
       - 64
+  - name: test_pool
+    displayName: Test pool
+    default:
+      - test-pool-onv12-1
 
 variables:
   system.debug: true
@@ -216,7 +220,7 @@ jobs:
   - job: test_windows
     displayName: "Test Windows"
     pool:
-      name: test-pool-onv12-1
+      name: ${{ test_pool }}
       demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
@@ -230,7 +234,7 @@ jobs:
   - job: test_darwin
     displayName: "Test macOS"
     pool:
-      name: test-pool-onv12-1
+      name: ${{ test_pool }}
       demands: Agent.OS -equals Darwin
     steps:
       - ${{ each node_version in parameters.node_versions }}:
