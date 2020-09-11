@@ -1,32 +1,14 @@
 parameters:
-  - name: WINDOWS_IMAGE
-    displayName: Windows image
-    type: string
-    default: vs2017-win2016
-    values:
-      - windows-latest
-      - windows-2019
-      - vs2017-win2016
-  - name: MACOS_IMAGE
-    displayName: macOS image
-    type: string
-    default: macOS-10.15
-    values:
-      - macOS-latest
-      - macOS-10.15
-      - macOS-10.14
-  - name: LINUX_IMAGE
-    displayName: Linux image
-    type: string
-    default: ubuntu-18.04
-    values:
-      - ubuntu-latest
-      - ubuntu-18.04
-      - ubuntu-16.04
   - name: node_versions
     displayName: Node versions
     type: object
     default:
+      - 14.9.0
+      - 14.8.0
+      - 14.7.0
+      - 14.6.0
+      - 14.10.1
+      - 14.10.0
       - 14.9.0
       - 14.8.0
       - 14.7.0
@@ -209,7 +191,8 @@ parameters:
       - 64
   - name: test_pool
     displayName: Test pool
-    default:
+    default: test-pool-onv12-1
+    values:
       - test-pool-onv12-1
 
 variables:
