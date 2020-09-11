@@ -220,7 +220,7 @@ jobs:
   - job: test_windows
     displayName: "Test Windows"
     pool:
-      name: ${{ test_pool }}
+      name: ${{ parameters.test_pool }}
       demands: Agent.OS -equals Windows_NT
     steps:
       - ${{ each node_version in parameters.node_versions }}:
@@ -234,7 +234,7 @@ jobs:
   - job: test_darwin
     displayName: "Test macOS"
     pool:
-      name: ${{ test_pool }}
+      name: ${{ parameters.test_pool }}
       demands: Agent.OS -equals Darwin
     steps:
       - ${{ each node_version in parameters.node_versions }}:
