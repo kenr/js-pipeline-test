@@ -15,7 +15,7 @@ jobs:
           project: 'Wayland'
           pipeline: 'NordicPlayground.vcpkg-export'
           artifact: 'vcpkg-export-Darwin-x64'
-          path: $(Build.SourcesDirectory)/bin
+          path: $(Build.SourcesDirectory)/temp
           runVersion: 'specific'
           runId: 5934
       - bash: |
@@ -28,12 +28,12 @@ jobs:
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
       - script: |
-          dir $(Build.SourcesDirectory)\bin
+          dir $(Build.SourcesDirectory)\temp
           echo "HOME: %HOME%"
           echo "HOMEPATH: %HOMEPATH%"
       - task: ExtractFiles@1
         inputs:
-          archiveFilePatterns: '*.zip'
+          archiveFilePatterns: 'temp/*.zip'
           destinationFolder: unpacked
           cleanDestinationFolder: true
       - script: |
