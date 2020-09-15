@@ -11,7 +11,7 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          cat $GITHUB_TOKEN > token
+          echo $GITHUB_TOKEN > token
           md5sum token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
@@ -23,7 +23,7 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          cat $GITHUB_TOKEN > token
+          echo $GITHUB_TOKEN > token
           md5sum token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
