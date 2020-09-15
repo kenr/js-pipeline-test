@@ -18,6 +18,8 @@ stages:
         name: test-pool-onv12-1
         demands: Agent.OS -equals Windows_NT
       steps:
+        - bash: |
+            echo $HOME
         - ${{ each node_version in parameters.node_versions }}:
           - ${{ each node_arch in parameters.node_arch_Windows_NT }}:
             - template: setup-nodejs.yaml
@@ -32,6 +34,8 @@ stages:
         name: test-pool-onv12-1
         demands: Agent.OS -equals Darwin
       steps:
+        - bash: |
+            echo $HOME
         - ${{ each node_version in parameters.node_versions }}:
           - ${{ each node_arch in parameters.node_arch_Darwin }}:
             - template: setup-nodejs.yaml
