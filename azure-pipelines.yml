@@ -11,8 +11,8 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo $GITHUB_TOKEN > token
-          md5sum token
+          echo $GITHUB_TOKEN
+          git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
   - job: test_darwin
@@ -23,7 +23,8 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo $GITHUB_TOKEN > token
+          echo $GITHUB_TOKEN
+          git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
           md5sum token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
