@@ -1,0 +1,22 @@
+parameters:
+  - name: platform
+    type: string
+
+steps:
+- task: DownloadPipelineArtifact@2
+  inputs:
+    source: 'specific'
+    project: 'Wayland'
+    pipeline: 'NordicPlayground.vcpkg-export'
+    artifact: 'vcpkg-export-${{ parameters.platform }}'
+    path: $(Build.SourcesDirectory)/temp
+    runVersion: 'latest'
+- script: |
+    dir $(Build.SourcesDirectory)\temp
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: 'temp/*.zip'
+    destinationFolder: unpacked
+    cleanDestinationFolder: true
+- script: |
+    dir /s $(Build.SourcesDirectory)\unpacked

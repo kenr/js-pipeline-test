@@ -8,35 +8,11 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     steps:
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          source: 'specific'
-          project: 'Wayland'
-          pipeline: 'NordicPlayground.vcpkg-export'
-          artifact: 'vcpkg-export-Darwin-x64'
-          path: $(Build.SourcesDirectory)/temp
-          runVersion: 'specific'
-          runId: 5934
+      - template: 'prepare-vcpkg.yaml'
+        parameters:
+          - platform: 'Darwin-x64'
       - bash: |
-          echo "$GITHUB_TOKEN" > token
-          echo $HOME
-
-          echo "HOME: $HOME"
-          echo "GITHUB_TOKEN: $GITHUB_TOKEN"
-          echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
-        env:
-          GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
-      - script: |
-          dir $(Build.SourcesDirectory)\temp
-          echo "HOME: %HOME%"
-          echo "HOMEPATH: %HOMEPATH%"
-      - task: ExtractFiles@1
-        inputs:
-          archiveFilePatterns: 'temp/*.zip'
-          destinationFolder: unpacked
-          cleanDestinationFolder: true
-      - script: |
-          dir /s $(Build.SourcesDirectory)\unpacked
+          echo "Hello world!"
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
@@ -51,3 +27,7 @@ jobs:
 #          git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
 #        env:
 #          GITHUB_TOKEN: $(KEN_TEST)
+#
+##
+# platform: Darwin-x64 | Linux-x64 | Windows
+#   
