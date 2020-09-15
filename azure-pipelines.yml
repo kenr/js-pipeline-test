@@ -2,7 +2,6 @@ variables:
 - group: wayland
 
 jobs:
-  # Test jobs below this point
   - job: test_windows
     displayName: "Test Windows"
     pool:
@@ -11,8 +10,16 @@ jobs:
       - template: 'prepare-vcpkg.yaml'
         parameters:
           platform: 'Darwin-x64'
-      - bash: |
-          echo "Hello world!"
+      - template: 'prepare-vcpkg.yaml'
+        parameters:
+          platform: 'Linux-x64'
+      - template: 'prepare-vcpkg.yaml'
+        parameters:
+          platform: 'Windows_NT-x64'
+      - template: 'prepare-vcpkg.yaml'
+        parameters:
+          platform: 'Windows_NT-x86'
+
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
