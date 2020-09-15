@@ -9,6 +9,15 @@ jobs:
       name: test-pool-onv12-1
       demands: Agent.OS -equals Windows_NT
     steps:
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          source: 'specific'
+          project: 'Wayland'
+          pipeline: 'NordicPlayground.vcpkg-export'
+          artifact: 'vcpkg-export-Darwin-x64'
+          path: $(Build.SourcesDirectory)/bin
+          runVersion: 'specific'
+          runId: 5934
       - bash: |
           echo "$GITHUB_TOKEN" > token
 
