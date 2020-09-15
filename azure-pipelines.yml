@@ -10,7 +10,7 @@ jobs:
       vmImage: vs2017-win2016
     steps:
       - script: |
-          echo "${VCPKG_EXPORT_FILENAME}"
+          echo "%VCPKG_EXPORT_FILENAME%"
       - template: 'prepare-vcpkg.yaml'
         parameters:
           platform: 'Darwin-x64'
