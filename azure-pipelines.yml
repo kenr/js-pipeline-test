@@ -1,8 +1,9 @@
+variables:
+- group: wayland
+- name: WAYLAND_GITHUB_TOKEN
+  value: $[variables.WAYLAND_GITHUB_TOKEN] # uses runtime expression
+
 jobs:
-  variables:
-  - group: wayland
-  - name: WAYLAND_GITHUB_TOKEN
-    value: $[variables.WAYLAND_GITHUB_TOKEN] # uses runtime expression
   # Test jobs below this point
   - job: test_windows
     displayName: "Test Windows"
