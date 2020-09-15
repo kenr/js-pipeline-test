@@ -31,6 +31,13 @@ jobs:
           dir $(Build.SourcesDirectory)\bin
           echo "HOME: %HOME%"
           echo "HOMEPATH: %HOMEPATH%"
+      - task: ExtractFiles@1
+        inputs:
+          archiveFilePatterns: '*.zip'
+          destinationFolder: unpacked
+          cleanDestinationFolder: true
+      - script: |
+          dir $(Build.SourcesDirectory)\unpacked
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
