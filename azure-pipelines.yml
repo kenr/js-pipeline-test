@@ -11,10 +11,10 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo $GITHUB_TOKEN
-          echo $(KEN_TEST)
-          echo $(GITHUB_TOKEN)
-          echo $NORDIC_DEVELOPER_USER
+          echo "$GITHUB_TOKEN"
+          echo "$(KEN_TEST)"
+          echo "$(GITHUB_TOKEN)"
+          echo "$NORDIC_DEVELOPER_USER"
           git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
           GITHUB_TOKEN: $(KEN_TEST)
@@ -26,10 +26,10 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo $GITHUB_TOKEN
-          echo $(KEN_TEST)
-          echo $(GITHUB_TOKEN)
-          echo $NORDIC_DEVELOPER_USER
+          echo "$GITHUB_TOKEN"
+          echo "$(KEN_TEST)"
+          echo "$(GITHUB_TOKEN)"
+          echo "$NORDIC_DEVELOPER_USER"
           git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
           GITHUB_TOKEN: $(KEN_TEST)
