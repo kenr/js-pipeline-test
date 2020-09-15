@@ -13,7 +13,7 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $(GITHUB_TOKEN)"
+          echo "WAYLAND_GITHUB_TOKEN: $GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
   - job: test_darwin
@@ -24,6 +24,6 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $(GITHUB_TOKEN)"
+          echo "WAYLAND_GITHUB_TOKEN: $GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
