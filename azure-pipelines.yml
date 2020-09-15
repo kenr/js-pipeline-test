@@ -12,7 +12,8 @@ jobs:
       - bash: |
           echo "HOME: $HOME"
           echo $GITHUB_TOKEN
-          echo $KEN_TEST
+          echo $(KEN_TEST)
+          echo $(GITHUB_TOKEN)
           echo $NORDIC_DEVELOPER_USER
           git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
@@ -26,7 +27,8 @@ jobs:
       - bash: |
           echo "HOME: $HOME"
           echo $GITHUB_TOKEN
-          echo $KEN_TEST
+          echo $(KEN_TEST)
+          echo $(GITHUB_TOKEN)
           echo $NORDIC_DEVELOPER_USER
           git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
