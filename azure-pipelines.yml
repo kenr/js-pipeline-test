@@ -1,5 +1,7 @@
 variables:
 - group: wayland
+- name: VCPKG_EXPORT_FILENAME
+  value: 'vcpkg-export-$(Date:yyyyMMdd)-r$(Rev:r)'
 
 jobs:
   - job: test_windows
@@ -7,6 +9,8 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     steps:
+      - script: |
+          echo "${VCPKG_EXPORT_FILENAME}"
       - template: 'prepare-vcpkg.yaml'
         parameters:
           platform: 'Darwin-x64'
@@ -37,4 +41,4 @@ jobs:
 #
 ##
 # platform: Darwin-x64 | Linux-x64 | Windows
-#   
+#
