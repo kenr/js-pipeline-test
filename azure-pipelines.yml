@@ -6,8 +6,7 @@ jobs:
   - job: test_windows
     displayName: "Test Windows"
     pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Windows_NT
+      vmImage: vs2017-win2016
     steps:
       - task: DownloadPipelineArtifact@2
         inputs:
