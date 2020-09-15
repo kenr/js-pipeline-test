@@ -37,7 +37,7 @@ jobs:
           destinationFolder: unpacked
           cleanDestinationFolder: true
       - script: |
-          dir $(Build.SourcesDirectory)\unpacked
+          dir /s $(Build.SourcesDirectory)\unpacked
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
