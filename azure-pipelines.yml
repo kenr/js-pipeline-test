@@ -1,7 +1,7 @@
 variables:
 - group: wayland
 - name: VCPKG_EXPORT_FILENAME
-  value: 'vcpkg-export-$(Date:yyyyMMdd)-r$(Rev:r)'
+  value: 'vcpkg-export-$(vcpkg_triplet)-$(Build.BuildNumber)'
 
 jobs:
   - job: test_windows
