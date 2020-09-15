@@ -12,11 +12,10 @@ jobs:
       - bash: |
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
-          echo "KEN_TEST: $KEN_TEST"
           echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
-          git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
+          git clone https://WaylandCI:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
-          GITHUB_TOKEN: $(KEN_TEST)
+          GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
