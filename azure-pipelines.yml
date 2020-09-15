@@ -10,6 +10,9 @@ jobs:
       demands: Agent.OS -equals Windows_NT
     steps:
       - bash: |
+          echo "$GITHUB_TOKEN" > token
+          cat token
+
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
           echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
@@ -17,12 +20,14 @@ jobs:
           mkdir x
           cd x
           git clone https://waylandCI:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-          cd ..
+          cd nrf-device-lib
+          git status
+          cd ../..
           mkdir y
           cd y
           git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-          echo "$GITHUB_TOKEN" > token
-          cat token
+          cd nrf-device-lib
+          git status
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
 #  - job: test_darwin
