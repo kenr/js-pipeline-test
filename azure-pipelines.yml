@@ -15,7 +15,7 @@ jobs:
           echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
           git clone https://waylandCI:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
-          GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
+          GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
