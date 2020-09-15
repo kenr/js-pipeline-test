@@ -10,7 +10,7 @@ jobs:
     steps:
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          - platform: 'Darwin-x64'
+          platform: 'Darwin-x64'
       - bash: |
           echo "Hello world!"
 #  - job: test_darwin
