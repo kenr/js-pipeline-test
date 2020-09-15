@@ -1,7 +1,5 @@
 variables:
 - group: wayland
-- name: WAYLAND_GITHUB_TOKEN
-  value: $[variables.WAYLAND_GITHUB_TOKEN] # uses runtime expression
 
 jobs:
   # Test jobs below this point
@@ -13,7 +11,8 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $GITHUB_TOKEN"
+          cat $GITHUB_TOKEN > token
+          md5sum token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
   - job: test_darwin
@@ -24,6 +23,7 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $GITHUB_TOKEN"
+          cat $GITHUB_TOKEN > token
+          md5sum token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)
