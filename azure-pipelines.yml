@@ -28,7 +28,7 @@ jobs:
           cd nrf-device-lib
           git status
           cd ../..
-          curl -H "Authorization: token $GITHUB_TOKEN" https://github.com/NordicPlayground/nrf-device-lib/archive/master.tar.gz
+          curl -L -H "Authorization: token $GITHUB_TOKEN" https://github.com/NordicPlayground/nrf-device-lib/archive/master.tar.gz
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
 #  - job: test_darwin
