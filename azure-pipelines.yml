@@ -13,7 +13,7 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $WAYLAND_GITHUB_TOKEN"
+          echo "WAYLAND_GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)"
   - job: test_darwin
     displayName: "Test macOS"
     pool:
@@ -22,4 +22,4 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "WAYLAND_GITHUB_TOKEN: $WAYLAND_GITHUB_TOKEN"
+          echo "WAYLAND_GITHUB_TOKEN: $(WAYLAND_GITHUB_TOKEN)"
