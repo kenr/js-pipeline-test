@@ -11,25 +11,23 @@ jobs:
     steps:
       - bash: |
           echo "HOME: $HOME"
-          echo "$GITHUB_TOKEN"
-          echo "$(KEN_TEST)"
-          echo "$(GITHUB_TOKEN)"
-          echo "$NORDIC_DEVELOPER_USER"
+          echo "GITHUB_TOKEN: $GITHUB_TOKEN"
+          echo "KEN_TEST: $KEN_TEST"
+          echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
           git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
         env:
           GITHUB_TOKEN: $(KEN_TEST)
-  - job: test_darwin
-    displayName: "Test macOS"
-    pool:
-      name: test-pool-onv12-1
-      demands: Agent.OS -equals Darwin
-    steps:
-      - bash: |
-          echo "HOME: $HOME"
-          echo "$GITHUB_TOKEN"
-          echo "$(KEN_TEST)"
-          echo "$(GITHUB_TOKEN)"
-          echo "$NORDIC_DEVELOPER_USER"
-          git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-        env:
-          GITHUB_TOKEN: $(KEN_TEST)
+#  - job: test_darwin
+#    displayName: "Test macOS"
+#    pool:
+#      name: test-pool-onv12-1
+#      demands: Agent.OS -equals Darwin
+#    steps:
+#      - bash: |
+#          echo "HOME: $HOME"
+#          echo "$GITHUB_TOKEN"
+#          echo "$KEN_TEST"
+#          echo "$NORDIC_DEVELOPER_USER"
+#          git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
+#        env:
+#          GITHUB_TOKEN: $(KEN_TEST)
