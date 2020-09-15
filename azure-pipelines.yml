@@ -11,7 +11,6 @@ jobs:
     steps:
       - bash: |
           echo "$GITHUB_TOKEN" > token
-          cat token
 
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
@@ -28,6 +27,8 @@ jobs:
           git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
           cd nrf-device-lib
           git status
+          cd ../..
+          curl -H "Authorization: token $GITHUB_TOKEN" https://github.com/NordicPlayground/nrf-device-lib/archive/master.tar.gz
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
 #  - job: test_darwin
