@@ -1,4 +1,8 @@
 jobs:
+  variables:
+  - group: wayland
+  - name: WAYLAND_GITHUB_TOKEN
+    value: $[variables.WAYLAND_GITHUB_TOKEN] # uses runtime expression
   # Test jobs below this point
   - job: test_windows
     displayName: "Test Windows"
@@ -7,7 +11,8 @@ jobs:
       demands: Agent.OS -equals Windows_NT
     steps:
       - bash: |
-          echo $HOME
+          echo "HOME: $HOME"
+          echo "WAYLAND_GITHUB_TOKEN: $WAYLAND_GITHUB_TOKEN"
   - job: test_darwin
     displayName: "Test macOS"
     pool:
@@ -15,4 +20,5 @@ jobs:
       demands: Agent.OS -equals Darwin
     steps:
       - bash: |
-          echo $HOME
+          echo "HOME: $HOME"
+          echo "WAYLAND_GITHUB_TOKEN: $WAYLAND_GITHUB_TOKEN"
