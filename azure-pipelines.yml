@@ -13,7 +13,14 @@ jobs:
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
           echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
+          echo ""
+          mkdir /d x
           git clone https://waylandCI:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
+          cd ..
+          mkdir /d y
+          git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
+          echo "$GITHUB_TOKEN" > token
+          cat token
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
 #  - job: test_darwin
