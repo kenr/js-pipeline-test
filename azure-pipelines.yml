@@ -19,7 +19,9 @@ jobs:
           runVersion: 'specific'
           runId: 5934
       - bash: |
+          ls -la $(Build.SourcesDirectory)/bin
           echo "$GITHUB_TOKEN" > token
+          echo $HOME
 
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
@@ -40,6 +42,9 @@ jobs:
           curl -L -H "Authorization: token $GITHUB_TOKEN" https://github.com/NordicPlayground/nrf-device-lib/archive/master.tar.gz
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
+      - script: |
+          echo "HOME: %HOME%"
+          echo "HOMEPATH: %HOMEPATH%"
 #  - job: test_darwin
 #    displayName: "Test macOS"
 #    pool:
