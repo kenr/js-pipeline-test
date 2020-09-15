@@ -5,9 +5,9 @@ resources:
       endpoint: kenr
       name: kenr/js-common
 
-extends:
-  template: supported-nodejs-versions.yml@azure-common
-
+#extends:
+#  template: supported-nodejs-versions.yml@azure-common
+#
 stages:
 - stage: Run nodejs tests
   jobs:
