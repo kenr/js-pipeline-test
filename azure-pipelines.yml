@@ -25,24 +25,10 @@ jobs:
           echo "HOME: $HOME"
           echo "GITHUB_TOKEN: $GITHUB_TOKEN"
           echo "NORDIC_DEVELOPER_USER: $NORDIC_DEVELOPER_USER"
-          echo ""
-          mkdir x
-          cd x
-          git clone https://waylandCI:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-          cd nrf-device-lib
-          git status
-          cd ../..
-          mkdir y
-          cd y
-          git clone https://$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-          cd nrf-device-lib
-          git status
-          cd ../..
-          curl -L -H "Authorization: token $GITHUB_TOKEN" https://github.com/NordicPlayground/nrf-device-lib/archive/master.tar.gz
         env:
           GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
       - script: |
-          dir $(Build.SourcesDirectory)/bin
+          dir $(Build.SourcesDirectory)\bin
           echo "HOME: %HOME%"
           echo "HOMEPATH: %HOMEPATH%"
 #  - job: test_darwin
