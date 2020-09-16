@@ -11,9 +11,9 @@ jobs:
     steps:
       - bash: |
           unzip --help
-          echo "ASDF: $(Build.SourcesDirectory)/temp"
-          cygpath -u "$(Build.SourcesDirectory)/temp"
-          ls `cygpath -u "$(Build.SourcesDirectory)/temp"`
+          echo "ASDF: $(Build.SourcesDirectory)"
+          cygpath -u "$(Build.SourcesDirectory)"
+          ls `cygpath -u "$(Build.SourcesDirectory)"`
       - script: |
           echo "%VCPKG_EXPORT_FILENAME%"
       - template: 'prepare-vcpkg.yaml'
