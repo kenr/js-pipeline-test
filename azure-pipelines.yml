@@ -18,16 +18,16 @@ jobs:
           echo "%VCPKG_EXPORT_FILENAME%"
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          triplet: 'x64-linux'
+          TRIPLET: 'x64-linux'
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          triplet: 'x64-osx'
+          TRIPLET: 'x64-osx'
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          triplet: 'x86-windows'
+          TRIPLET: 'x86-windows'
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          triplet: 'x64-windows'
+          TRIPLET: 'x64-windows'
 
 #  - job: test_darwin
 #    displayName: "Test macOS"

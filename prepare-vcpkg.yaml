@@ -1,6 +1,12 @@
 parameters:
-  - name: triplet
+  - name: TRIPLET
     type: string
+  - name: VCPKG_ROOT
+    type: string
+    default: "$(Build.SourceDirectory)/vcpkg"
+  - name: ARTIFACT_DIRECTORY
+    type: string
+    default: $(Build.SourceDirectory)/temp
 
 steps:
 - task: DownloadPipelineArtifact@2
@@ -8,15 +14,40 @@ steps:
     source: 'specific'
     project: 'Wayland'
     pipeline: 'NordicPlayground.vcpkg-export'
-    artifact: 'vcpkg-export-${{ parameters.triplet }}'
-    path: $(Build.SourcesDirectory)/temp
+    artifact: 'vcpkg-export-${{ parameters.TRIPLET }}'
+    path: {{ parameters.ARTIFACT_DIRECTORY }}
     runVersion: 'latest'
-- script: |
-    dir $(Build.SourcesDirectory)\temp
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: 'temp/*.zip'
-    destinationFolder: unpacked
-    cleanDestinationFolder: true
-- script: |
-    dir /s $(Build.SourcesDirectory)\unpacked
+- bash: |
+    extract_vcpkg_export () {
+      # argument 1: path to vcpkg artifact directory
+      # argument 2: triplet (for sanity checking)
+      # argument 3: path to vcpkg root (destination to unpack artifact)
+
+      # Make sure the path is usable for bash
+      case "$(uname -s)" in
+         CYGWIN*|MINGW32*|MSYS*|MINGW*)
+           VCPKG_EXPORT_ARTIFACT_DIRECTORY=`cygpath -u $1`
+           VCPKG_EXPORT_VCPKG_ROOT=`cygpath -u $3`
+           ;;
+         *)
+           VCPKG_EXPORT_ARTIFACT_DIRECTORY=$1
+           VCPKG_EXPORT_VCPKG_ROOT=$3
+           ;;
+      esac
+
+      TEMP_DIR=`mktemp -d`
+      EXPORT_TRIPLET=$2
+
+      echo "Extracting files to $TEMP_DIR, moving to $VCPKG_EXPORT_VCPKG_ROOT"
+
+      # Find the artifact, unzip it and move it to the requested location
+      [[ -d $VCPKG_EXPORT_VCPKG_ROOT ]] && rm -rf $VCPKG_EXPORT_VCPKG_ROOT
+
+      pushd .
+      cd $TEMP_DIR
+      find $VCPKG_EXPORT_ARTIFACT_DIRECTORY -maxdepth 1 -name vcpkg-export-$EXPORT_TRIPLET-\*.zip -exec unzip -qq \{\} \;
+      find -maxdepth 1 -name vcpkg-export-$EXPORT_TRIPLET\* -type d -exec mv \{\} $VCPKG_EXPORT_VCPKG_ROOT \;
+      popd
+    }
+
+    extract_vcpkg_export "${{ parameters.ARTIFACT_DIRECTORY }}" "${{ parameters.TRIPLET }}" "${{ parameters.VCPKG_ROOT }}"
