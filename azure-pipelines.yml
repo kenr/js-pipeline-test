@@ -11,7 +11,8 @@ jobs:
     steps:
       - bash: |
           unzip --help
-          cygpath -u $(Build.SourcesDirectory)/temp
+          echo "ASDF: $(Build.SourcesDirectory)/temp"
+          cygpath -u "$(Build.SourcesDirectory)/temp"
           ls `cygpath -u $(Build.SourcesDirectory)/temp`
       - script: |
           echo "%VCPKG_EXPORT_FILENAME%"
