@@ -3,10 +3,8 @@ parameters:
     type: string
   - name: VCPKG_ROOT
     type: string
-    default: "$(Build.SourceDirectory)/vcpkg"
   - name: ARTIFACT_DIRECTORY
     type: string
-    default: $(Build.SourceDirectory)/temp
 
 steps:
 - task: DownloadPipelineArtifact@2
