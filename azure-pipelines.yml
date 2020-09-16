@@ -20,22 +20,22 @@ jobs:
         parameters:
           TRIPLET: 'x64-linux'
           VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(BUild.SourcesDirectory)/temp"
+          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
       - template: 'prepare-vcpkg.yaml'
         parameters:
           TRIPLET: 'x64-osx'
           VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(BUild.SourcesDirectory)/temp"
+          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
       - template: 'prepare-vcpkg.yaml'
         parameters:
           TRIPLET: 'x86-windows'
-          VCPKG_ROOT: "$(BUild.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(BUild.SourcesDirectory)/temp"
+          VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
+          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
       - template: 'prepare-vcpkg.yaml'
         parameters:
           TRIPLET: 'x64-windows'
           VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(BUild.SourcesDirectory)/temp"
+          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
 
 #  - job: test_darwin
 #    displayName: "Test macOS"
