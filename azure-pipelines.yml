@@ -9,6 +9,9 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     steps:
+      - bash: |
+          unzip --help
+          cygpath -u $(Build.SourcesDirectory)/temp
       - script: |
           echo "%VCPKG_EXPORT_FILENAME%"
       - template: 'prepare-vcpkg.yaml'
