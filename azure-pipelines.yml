@@ -15,18 +15,21 @@ jobs:
           ls `cygpath -u $(Build.SourcesDirectory)/temp`
       - script: |
           echo "%VCPKG_EXPORT_FILENAME%"
+
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          platform: 'Darwin-x64'
+          triplet: 'x64-linux'
+
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          platform: 'Linux-x64'
+          platform: 'x64-osx'
+
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          platform: 'Windows_NT-x64'
+          triplet: 'x86-windows'
       - template: 'prepare-vcpkg.yaml'
         parameters:
-          platform: 'Windows_NT-x86'
+          triplet: 'x64-windows'
 
 #  - job: test_darwin
 #    displayName: "Test macOS"
