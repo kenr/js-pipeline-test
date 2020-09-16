@@ -15,7 +15,7 @@ steps:
     project: 'Wayland'
     pipeline: 'NordicPlayground.vcpkg-export'
     artifact: 'vcpkg-export-${{ parameters.TRIPLET }}'
-    path: {{ parameters.ARTIFACT_DIRECTORY }}
+    path: ${{ parameters.ARTIFACT_DIRECTORY }}
     runVersion: 'latest'
 - bash: |
     extract_vcpkg_export () {
