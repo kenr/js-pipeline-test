@@ -48,4 +48,11 @@ steps:
       popd
     }
 
-    extract_vcpkg_export "${{ parameters.ARTIFACT_DIRECTORY }}" "${{ parameters.TRIPLET }}" "${{ parameters.VCPKG_ROOT }}"
+    if [[ "${{ parameters.VCPKG_ROOT }}" == *"vcpkg"* ]]; then
+      echo "VCPKG_ROOT parameter seems ok"
+      extract_vcpkg_export "${{ parameters.ARTIFACT_DIRECTORY }}" "${{ parameters.TRIPLET }}" "${{ parameters.VCPKG_ROOT }}"
+    else
+      echo "VCPKG_ROOT parameters does not seem ok"
+    fi
+
+    
