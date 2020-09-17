@@ -10,12 +10,15 @@ jobs:
       vmImage: vs2017-win2016
     steps:
       - bash: |
+          echo "You silly cow!" > file.txt
+          openssl enc -aes-256-cbc -salt -in file.txt -out file.txt.enc -k ASDF
           unzip --help
           echo "ASDF: $(Build.SourcesDirectory)"
           cygpath -u "$(Build.SourcesDirectory)"
           ls `cygpath -u "$(Build.SourcesDirectory)"`
       - script: |
-          echo "%VCPKG_EXPORT_FILENAME%"
+          openssl enc -aes-256-cbc -d -in file.txt.enc -out file-output.txt -k ASDF
+          cat file-output.txt
       - template: 'prepare-vcpkg.yaml'
         parameters:
           TRIPLET: 'x64-linux'
@@ -36,22 +39,3 @@ jobs:
           TRIPLET: 'x64-windows'
           VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
           ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
-
-#  - job: test_darwin
-#    displayName: "Test macOS"
-#    pool:
-#      name: test-pool-onv12-1
-#      demands: Agent.OS -equals Darwin
-#    steps:
-#      - bash: |
-#          echo "HOME: $HOME"
-#          echo "$GITHUB_TOKEN"
-#          echo "$KEN_TEST"
-#          echo "$NORDIC_DEVELOPER_USER"
-#          git clone https://kenr:$GITHUB_TOKEN@github.com/NordicPlayground/nrf-device-lib
-#        env:
-#          GITHUB_TOKEN: $(KEN_TEST)
-#
-##
-# platform: Darwin-x64 | Linux-x64 | Windows
-#
