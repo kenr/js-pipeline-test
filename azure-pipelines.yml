@@ -15,8 +15,8 @@ jobs:
           command: download
           vstsFeed: 'Wayland internal/nrfjprog-releases'
           vstsFeedPackage: 'nrftools'
-          vstsPackageVersion: *
-          downloadDirectory: '$(Build.SourcesDirectory)\someFolder'
+          vstsPackageVersion: '*'
+          downloadDirectory: '$(Build.SourcesDirectory)/someFolder'
       - task: DownloadPipelineArtifact@2
         inputs:
           source: 'specific'
