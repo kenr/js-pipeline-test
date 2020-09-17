@@ -11,13 +11,13 @@ jobs:
     steps:
       - bash: |
           echo "You silly cow!" > file.txt
-          openssl enc -aes-256-cbc -salt -in file.txt -out file.txt.enc -k ASDF
+          openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k ASDF
           unzip --help
           echo "ASDF: $(Build.SourcesDirectory)"
           cygpath -u "$(Build.SourcesDirectory)"
           ls `cygpath -u "$(Build.SourcesDirectory)"`
-      - script: |
-          openssl enc -aes-256-cbc -d -in file.txt.enc -out file-output.txt -k ASDF
+      - bash: |
+          openssl enc -aes-256-cbc -d -pbkdf2 -in file.txt.enc -out file-output.txt -k ASDF
           cat file-output.txt
       - template: 'prepare-vcpkg.yaml'
         parameters:
