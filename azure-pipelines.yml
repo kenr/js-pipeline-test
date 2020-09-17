@@ -17,14 +17,6 @@ jobs:
           vstsFeedPackage: 'nrftools'
           vstsPackageVersion: '*'
           downloadDirectory: '$(Build.SourcesDirectory)/someFolder'
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          source: 'specific'
-          project: 'Wayland internal'
-          pipeline: 'NordicPlayground.vcpkg-export'
-          artifact: 'vcpkg-export-${{ parameters.TRIPLET }}'
-          path: ${{ parameters.ARTIFACT_DIRECTORY }}
-          runVersion: 'latest'
       - bash: |
           echo "You silly cow!" > file.txt
           openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
