@@ -3,50 +3,65 @@ variables:
 - name: VCPKG_EXPORT_FILENAME
   value: 'vcpkg-export-$(vcpkg_triplet)-$(Build.BuildNumber)'
 
+resources:
+  repositories:
+  - repository: nordic-vcpkg-overlays
+    type: github
+    endpoint: NordicPlayground
+    name: NordicPlayground/vcpkg-overlay-ports
+    trigger:
+    - master
+
 jobs:
   - job: test
     displayName: "Test"
     pool:
-      vmImage: macOS-10.15
+      vmImage: ubuntu-18.04
+    variables:
+      VCPKG_ROOT: '$(Agent.HomeDirectory)/vcpkg'
+      VCPKG_COMMON_PACKAGES: 'nrftools spdlog catch2 cli11 nlohmann-json asio libzip zlib bzip2 openssl bitsery nrf-device-lib'
+      VCPKG_OVERLAY_PORTS_DIRECTORY: '$(Build.SourcesDirectory)/vcpkg-overlay-ports/ports'
+      VCPKG_OVERLAY_TRIPLETS_DIRECTORY: '$(Build.SourcesDirectory)/vcpkg-overlay-ports/triplets'
+      VCPKG_COMMON_ARGUMENTS: '--overlay-ports=$(VCPKG_OVERLAY_PORTS_DIRECTORY) --overlay-triplets=$(VCPKG_OVERLAY_TRIPLETS_DIRECTORY)'
+      VCPKG_EXPORT_FILENAME: vcpkg-export-$(vcpkg_triplet)-$(Build.BuildNumber)
+      NRFJPROG_SOURCE_CODE_DOWNLOAD_DIRECTORY: '$(Agent.TempDirectory)/artifacts'
+      NRFJPROG_SOURCE_CODE_ARTIFACT: nrftools-kere-vcpkg@51c14b7b94e.zip
+      NRFJPROG_SOURCE_CODE_PACKAGE_VERSION: 10.9.0-51c14b7b94e
     steps:
-      - bash: |
-          echo "You silly cow!" > file.txt
-          brew install openssl@1.1
-          echo "openssl prefix --start--"
-          brew --prefix openssl@1.1
-          echo "openssl prefix --end--"
-          openssl version -a
+    - checkout: self
+    - checkout: nordic-vcpkg-overlays
+    - task: UniversalPackages@0
+      displayName: 'Download nrfjprog encrypted source code'
+      inputs:
+        command: download
+        vstsFeed: 'Wayland internal/nrfjprog-releases'
+        vstsFeedPackage: 'nrftools'
+        vstsPackageVersion: $(NRFJPROG_SOURCE_CODE_PACKAGE_VERSION)
+        downloadDirectory: $(NRFJPROG_SOURCE_CODE_DOWNLOAD_DIRECTORY)
 
-          if [ -x "$(command -v brew)" ]; then
-            echo "macOS with brew found"
-            export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
-          fi
+    # Install the toolchains -- start --
+    - bash: |
+        sudo apt-get update
+        sudo apt-get install ninja-build libudev-dev gcc-8 g++-8 clang-9 clang-format-9 clang-tidy-9 libusb-1.0-0-dev
 
-          # export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
-          # echo "PATH: $PATH"
-          openssl version -a
-          openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
-      - bash: |
-          export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
-          openssl enc -aes-256-cbc -d -pbkdf2 -in file.txt.enc -out file-output.txt -k ASDF
-          cat file-output.txt
-      - template: 'prepare-vcpkg.yaml'
-        parameters:
-          TRIPLET: 'x64-linux'
-          VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
-      - template: 'prepare-vcpkg.yaml'
-        parameters:
-          TRIPLET: 'x64-osx'
-          VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
-      - template: 'prepare-vcpkg.yaml'
-        parameters:
-          TRIPLET: 'x86-windows'
-          VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
-      - template: 'prepare-vcpkg.yaml'
-        parameters:
-          TRIPLET: 'x64-windows'
-          VCPKG_ROOT: "$(Build.SourcesDirectory)/vcpkg"
-          ARTIFACT_DIRECTORY: "$(Build.SourcesDirectory)/temp"
+        openssl enc -aes-256-cbc -d -pbkdf2 -in $NRFJPROG_SOURCE_CODE_ARTIFACT_PATH.enc -out $NRFJPROG_SOURCE_CODE_ARTIFACT_PATH -k $NRFJPROG_SOURCE_CODE_PW
+
+        echo $GITHUB_TOKEN > $TMPDIR/$GITHUB_TOKEN_PATH
+        echo "Stored token in $TMPDIR/$GITHUB_TOKEN_PATH"
+
+        git clone https://github.com/Microsoft/vcpkg.git $VCPKG_ROOT
+        git -C $VCPKG_ROOT checkout 2020.07
+
+        export CXX=g++-8
+        export CC=gcc-8
+
+        $VCPKG_ROOT/bootstrap-vcpkg.sh -disableMetrics
+        $VCPKG_ROOT/vcpkg install $(VCPKG_COMMON_ARGUMENTS) $(VCPKG_COMMON_PACKAGES)
+        $VCPKG_ROOT/vcpkg export  $(VCPKG_COMMON_ARGUMENTS) --zip --output=$(VCPKG_EXPORT_FILENAME) $(VCPKG_COMMON_PACKAGES)
+      env:
+        NRFJPROG_SOURCE_CODE_PW: $(NRFJPROG_SOURCE_CODE_PW)
+        NRFJPROG_SOURCE_CODE_ARTIFACT_PATH: "$(NRFJPROG_SOURCE_CODE_DOWNLOAD_DIRECTORY)/$(NRFJPROG_SOURCE_CODE_ARTIFACT)"
+        GITHUB_TOKEN: $(WAYLAND_GITHUB_PRIVATE_TOKEN)
+        GITHUB_TOKEN_PATH: .nrf_github_token
+        TMPDIR: $(Agent.TempDirectory)
+      displayName: 'Compile shit'
