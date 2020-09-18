@@ -12,6 +12,9 @@ jobs:
       - bash: |
           echo "You silly cow!" > file.txt
           brew install openssl@1.1
+          echo "openssl prefix --start--"
+          brew --prefix openssl@1.1
+          echo "openssl prefix --end--"
           openssl version -a
 
           export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
