@@ -19,7 +19,7 @@ jobs:
 
           export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
           echo "PATH: $PATH"
-          ls -la "/usr/local/opt/"
+          openssl version -a
           openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
       - bash: |
           export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
