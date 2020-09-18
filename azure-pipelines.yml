@@ -4,15 +4,18 @@ variables:
   value: 'vcpkg-export-$(vcpkg_triplet)-$(Build.BuildNumber)'
 
 jobs:
-  - job: test_windows
-    displayName: "Test Windows"
+  - job: test
+    displayName: "Test"
     pool:
       vmImage: macOS-10.15
     steps:
       - bash: |
           echo "You silly cow!" > file.txt
-          brew install openssl
+          brew install openssl@1.1
+          openssl version -a
+
           export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
+          ls -la "/usr/local/opt/"
           openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
       - bash: |
           export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
