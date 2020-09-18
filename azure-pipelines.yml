@@ -11,8 +11,11 @@ jobs:
     steps:
       - bash: |
           echo "You silly cow!" > file.txt
+          brew install openssl
+          export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
           openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
       - bash: |
+          export PATH="/usr/local/opt/openssl/bin:$PATH" # This is just for macOS
           openssl enc -aes-256-cbc -d -pbkdf2 -in file.txt.enc -out file-output.txt -k ASDF
           cat file-output.txt
       - template: 'prepare-vcpkg.yaml'
