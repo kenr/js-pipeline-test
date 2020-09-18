@@ -17,8 +17,13 @@ jobs:
           echo "openssl prefix --end--"
           openssl version -a
 
-          export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
-          echo "PATH: $PATH"
+          if [ -x "$(command -v brew)" ]; then
+            echo "macOS with brew found"
+            export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
+          fi
+
+          # export PATH="$(brew --prefix openssl@1.1)/bin:$PATH" # This is just for macOS
+          # echo "PATH: $PATH"
           openssl version -a
           openssl enc -aes-256-cbc -salt -pbkdf2 -in file.txt -out file.txt.enc -k mae7EiT8
       - bash: |
