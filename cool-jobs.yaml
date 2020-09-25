@@ -1,10 +1,9 @@
 steps:
   - ${{ each node_version in parameters.node_versions }}:
-    - ${{ each node_arch in parameters.node_arch }}:
-      - template: setup-nodejs.yaml
-        parameters:
-          node_version: ${{ node_version }}
-          node_arch: ${{ node_arch }}
-      - bash: |
-          node -e "console.log(process.version+\" arch:\"+process.arch)"
-      - template: do-something-else.yaml
+    - template: setup-nodejs.yaml
+      parameters:
+        node_version: ${{ node_version }}
+        node_arch: ${{ parameters.node_arch }}
+    - bash: |
+        node -e "console.log(process.version+\" arch:\"+process.arch)"
+    - template: do-something-else.yaml
