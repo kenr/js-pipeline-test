@@ -194,12 +194,20 @@ parameters:
     default: test-pool-onv12-1
     values:
       - test-pool-onv12-1
+  - name: agents
+    displayName: Agents
+    type: object
+    default:
+      Windows_NT
+      Darwin
+      Linux
 
 variables:
   system.debug: true
 
+${{ each agent_os in parameters.agents }}:
 jobs:
   # Test jobs below this point
   - template: cool-jobs.yaml
     parameters:
-    - agent_os: $(Agent.OS)
+    - agent_os: ${{ agent_os }}
