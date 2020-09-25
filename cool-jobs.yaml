@@ -1,6 +1,6 @@
 steps:
   - ${{ each node_version in parameters.node_versions }}:
-    - ${{ each node_arch in parameters.node_arch_${{ parameters.agent_os }}:
+    - ${{ each node_arch in parameters.node_arch }}:
       - template: setup-nodejs.yaml
         parameters:
           node_version: ${{ node_version }}

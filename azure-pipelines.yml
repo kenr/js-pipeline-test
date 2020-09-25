@@ -217,7 +217,7 @@ jobs:
         parameters:
           architecture: x86
           agent_os: Windows_NT
-
+          node_arch: 32
   - job: test_win64
     displayName: "Test win64"
     dependsOn: "build_binding"
@@ -229,3 +229,4 @@ jobs:
         parameters:
           architecture: x64
           agent_os: Windows_NT
+          node_arch: 64
