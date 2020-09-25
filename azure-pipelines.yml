@@ -60,3 +60,29 @@ jobs:
           agent_os: Windows_NT
           node_arch: 64
           node_versions: ${{ parameters.node_versions }}
+  - job: test_macos
+    displayName: "Test macOS"
+    dependsOn: "build_binding"
+    pool:
+      name: ${{ parameters.test_pool }}
+      demands: Agent.OS -equals Darwin
+    steps:
+      - template: cool-jobs.yaml
+        parameters:
+          architecture: x64
+          agent_os: Darwin
+          node_arch: 64
+          node_versions: ${{ parameters.node_versions }}
+  - job: test_linux
+    displayName: "Test Linux"
+    dependsOn: "build_binding"
+    pool:
+      name: ${{ parameters.test_pool }}
+      demands: Agent.OS -equals Linux
+    steps:
+      - template: cool-jobs.yaml
+        parameters:
+          architecture: x64
+          agent_os: Linux
+          node_arch: 64
+          node_versions: ${{ parameters.node_versions }}
