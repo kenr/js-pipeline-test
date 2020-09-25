@@ -206,7 +206,7 @@ variables:
   system.debug: true
 
 jobs:
-${{ each agent_os in parameters.agents }}:
+  ${{ each agent_os in parameters.agents }}:
   # Test jobs below this point
   - template: cool-jobs.yaml
     parameters:
