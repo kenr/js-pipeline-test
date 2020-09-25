@@ -206,6 +206,13 @@ variables:
   system.debug: true
 
 jobs:
+  - job: build_binding
+    displayName: "Build binding"
+    steps:
+      bash: |
+        echo "How are you all doing?"
+
+jobs:
   - job: test_win86
     displayName: "Test win32"
     dependsOn: "build_binding"
