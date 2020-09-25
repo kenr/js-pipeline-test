@@ -236,3 +236,4 @@ jobs:
           architecture: x64
           agent_os: Windows_NT
           node_arch: 64
+          node_versions: ${{ parameters.node_versions }}
