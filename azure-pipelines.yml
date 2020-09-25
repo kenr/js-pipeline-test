@@ -209,8 +209,8 @@ jobs:
   - job: build_binding
     displayName: "Build binding"
     steps:
-      bash: |
-        echo "How are you all doing?"
+      - bash: |
+          echo "How are you all doing?"
 
   - job: test_win86
     displayName: "Test win32"
