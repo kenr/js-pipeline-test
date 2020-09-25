@@ -1,0 +1,3 @@
+steps:
+  - base: |
+      echo "This is it from the do-something-else.yaml template!"
