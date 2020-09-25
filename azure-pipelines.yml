@@ -202,5 +202,4 @@ jobs:
   # Test jobs below this point
   - template: cool-jobs.yaml
     parameters:
-      - agent_os: $(Agent.OS)
-
+    - agent_os: $(Agent.OS)
