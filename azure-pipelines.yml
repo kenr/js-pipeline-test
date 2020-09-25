@@ -206,8 +206,26 @@ variables:
   system.debug: true
 
 jobs:
-  ${{ each agent_os in parameters.agents }}:
-  # Test jobs below this point
-  - template: cool-jobs.yaml
-    parameters:
-    - agent_os: ${{ agent_os }}
+  - job: test_win86
+    displayName: "Test win32"
+    dependsOn: "build_binding"
+    pool:
+      name: test-pool-onv12-1
+      demands: Agent.OS -equals Windows_NT
+    steps:
+      - template: cool-jobs.yaml
+        parameters:
+          architecture: x86
+          agent_os: Windows_NT
+
+  - job: test_win64
+    displayName: "Test win64"
+    dependsOn: "build_binding"
+    pool:
+      name: test-pool-onv12-1
+      demands: Agent.OS -equals Windows_NT
+    steps:
+      - template: cool-jobs.yaml
+        parameters:
+          architecture: x64
+          agent_os: Windows_NT
