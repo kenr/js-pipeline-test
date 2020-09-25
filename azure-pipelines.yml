@@ -214,6 +214,8 @@ jobs:
               node_arch: ${{ node_arch }}
           - bash: |
               node -e "console.log(process.version+\" arch:\"+process.arch)"
+      - bash: |
+          echo "This is it!"
   - job: test_darwin
     displayName: "Test macOS"
     pool:
